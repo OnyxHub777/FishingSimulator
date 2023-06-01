@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("FishingSimulatorRevised-V1.3", "Midnight")
+local Window = Library.CreateLib("FishingSimulatorRevised-V1.4", "Midnight")
     -- MAIN
     local Main = Window:NewTab("Godmode")
     local MainSection = Main:NewSection("Main")
@@ -187,4 +187,9 @@ game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:Inv
 
 end)
 
+MainSection:NewButton("Sell Items", "Sells All Items, Doesn't Include Locked", function()
+
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.processGameItemSold:InvokeServer("SellEverything")
+
+end)
     
