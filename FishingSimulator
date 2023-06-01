@@ -119,3 +119,5 @@ chosenModel = game.Workspace:FindFirstChild(parentName)
 if chosenModel then
     chosenModel.AncestryChanged:Connect(handleDeletion)
 end
+
+end)
