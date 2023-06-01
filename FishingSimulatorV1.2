@@ -1,7 +1,7 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("FishingSimulatorRevised-V1.1", "Midnight")
     -- MAIN
-    local Main = Window:NewTab("Freeze")
+    local Main = Window:NewTab("Godmode")
     local MainSection = Main:NewSection("Main")
 
 
@@ -123,3 +123,57 @@ if chosenModel then
 end
 
 end)
+
+
+
+local Main = Window:NewTab("Teleports")
+    local MainSection = Main:NewSection("Main")
+    
+    MainSection:NewButton("Teleport to Orca", "Teleports To Any Random Orca", function()
+    
+    -- Replace "ModelName" with the name of the model you want to teleport to
+local modelName = "KillerWhale"
+
+local function teleportPlayer(player)
+    -- Find the model in the workspace
+    local model = workspace:FindFirstChild(modelName)
+    
+    -- Check if the model exists
+    if model then
+        -- Teleport the player's character to the model's position
+        player.Character.HumanoidRootPart.CFrame = model.PrimaryPart.CFrame
+    else
+        print("Model not found!")
+    end
+end
+
+-- Teleport the player to the chosen model when the script runs
+teleportPlayer(game.Players.LocalPlayer)
+
+    
+    end)
+
+MainSection:NewButton("Teleport to Shark", "Teleports To Any Random Shark", function()
+    
+    -- Replace "ModelName" with the name of the model you want to teleport to
+local modelName = "GreatWhiteShark"
+
+local function teleportPlayer(player)
+    -- Find the model in the workspace
+    local model = workspace:FindFirstChild(modelName)
+    
+    -- Check if the model exists
+    if model then
+        -- Teleport the player's character to the model's position
+        player.Character.HumanoidRootPart.CFrame = model.PrimaryPart.CFrame
+    else
+        print("Model not found!")
+    end
+end
+
+-- Teleport the player to the chosen model when the script runs
+teleportPlayer(game.Players.LocalPlayer)
+
+    
+    end)
+    
