@@ -1,0 +1,155 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Fishing Simulator", "Serpent")
+    -- MAIN
+    local Main = Window:NewTab("Freeze")
+    local MainSection = Main:NewSection("Main")
+
+
+MainSection:NewButton("Freeze Sharks", "Freezes All Sharks", function()
+
+
+
+local parentName = "GreatWhiteShark"
+local partName = "HumanoidRootPart"
+local chosenModel = nil
+
+-- Function to recursively anchor parts
+local function anchorParts(parent)
+    for _, child in ipairs(parent:GetDescendants()) do
+        if child:IsA("BasePart") and child.Name == partName then
+            child.Anchored = true
+        end
+    end
+end
+
+-- Function to find all parents with the specified name
+local function findParents(workspace, name)
+    local parents = {}
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and child.Name == name then
+            table.insert(parents, child)
+        end
+        findParents(child, name)
+    end
+    return parents
+end
+
+-- Function to handle model deletion
+local function handleDeletion()
+    if chosenModel then
+        chosenModel = nil
+        print("Chosen model deleted. Waiting for respawn...")
+    end
+end
+
+-- Find parents with the specified name
+local parents = findParents(game.Workspace, parentName)
+
+-- Anchor parts within the parents
+if #parents > 0 then
+    for _, parent in ipairs(parents) do
+        anchorParts(parent)
+    end
+    print("Anchored all parts named '" .. partName .. "' within parents named '" .. parentName .. "'.")
+else
+    warn("No parents named '" .. parentName .. "' found.")
+end
+
+-- Set the chosenModel variable to the newly spawned model
+chosenModel = game.Workspace:FindFirstChild(parentName)
+
+-- Listen for model deletion
+if chosenModel then
+    chosenModel.AncestryChanged:Connect(handleDeletion)
+end
+
+end)
+
+MainSection:NewButton("Teleport To Random Shark", "Teleports To A Random Shark, Keybind is T", function()
+
+-- Replace "ModelName" with the name of the model you want to teleport to
+
+local modelName = "GreatWhiteShark"
+local player = game.Players.LocalPlayer
+
+-- Function to teleport the player to the model
+local function teleportToModel()
+    local model = workspace:FindFirstChild(modelName)
+    
+    if model then
+        local teleportPosition = model:GetBoundingBox().Position
+        player.Character:SetPrimaryPartCFrame(CFrame.new(teleportPosition))
+        print("Teleported to " .. modelName)
+    else
+        print("Model " .. modelName .. " not found.")
+    end
+end
+
+-- Teleport the player to the model when the 't' key is pressed
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.T then
+        teleportToModel()
+    end
+end)
+
+
+end)
+
+MainSection:NewButton("Godmode For Sharks", "Sharks Cannot kill you", function()
+
+local parentName = "GreatWhiteShark"
+local partName = "Hitbox"
+local chosenModel = nil
+
+-- Function to recursively resize parts
+local function resizeParts(parent)
+    for _, child in ipairs(parent:GetDescendants()) do
+        if child:IsA("BasePart") and child.Name == partName then
+            -- Adjust the size of the part as per your requirement
+            child.Size = Vector3.new(0, 0, 0)
+        end
+    end
+end
+
+-- Function to find all parents with the specified name
+local function findParents(workspace, name)
+    local parents = {}
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and child.Name == name then
+            table.insert(parents, child)
+        end
+        findParents(child, name)
+    end
+    return parents
+end
+
+-- Function to handle model deletion
+local function handleDeletion()
+    if chosenModel then
+        chosenModel = nil
+        print("Chosen model deleted. Waiting for respawn...")
+    end
+end
+
+-- Find parents with the specified name
+local parents = findParents(game.Workspace, parentName)
+
+-- Resize parts within the parents
+if #parents > 0 then
+    for _, parent in ipairs(parents) do
+        resizeParts(parent)
+    end
+    print("Resized all parts named '" .. partName .. "' within parents named '" .. parentName .. "'.")
+else
+    warn("No parents named '" .. parentName .. "' found.")
+end
+
+-- Set the chosenModel variable to the newly spawned model
+chosenModel = game.Workspace:FindFirstChild(parentName)
+
+-- Listen for model deletion
+if chosenModel then
+    chosenModel.AncestryChanged:Connect(handleDeletion)
+end
+
+end)
