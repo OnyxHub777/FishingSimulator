@@ -177,3 +177,14 @@ teleportPlayer(game.Players.LocalPlayer)
     
     end)
     
+    local Main = Window:NewTab("FishCatch Changer")
+    local MainSection = Main:NewSection("Main")
+    
+    MainSection:NewButton("Pole Troll", "Puts a lot of fish on your fishing pole, press the button for more fish.", function()
+ 
+
+game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:InvokeServer()
+
+end)
+
+    
