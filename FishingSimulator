@@ -153,3 +153,60 @@ if chosenModel then
 end
 
 end)
+
+MainSection:NewButton("Godmode For Orcas", "Orcas Cannot kill you", function()
+
+local parentName = "KillerWhale"
+local partName = "Hitbox"
+local chosenModel = nil
+
+-- Function to recursively resize parts
+local function resizeParts(parent)
+    for _, child in ipairs(parent:GetDescendants()) do
+        if child:IsA("BasePart") and child.Name == partName then
+            -- Adjust the size of the part as per your requirement
+            child.Size = Vector3.new(0, 0, 0)
+        end
+    end
+end
+
+-- Function to find all parents with the specified name
+local function findParents(workspace, name)
+    local parents = {}
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and child.Name == name then
+            table.insert(parents, child)
+        end
+        findParents(child, name)
+    end
+    return parents
+end
+
+-- Function to handle model deletion
+local function handleDeletion()
+    if chosenModel then
+        chosenModel = nil
+        print("Chosen model deleted. Waiting for respawn...")
+    end
+end
+
+-- Find parents with the specified name
+local parents = findParents(game.Workspace, parentName)
+
+-- Resize parts within the parents
+if #parents > 0 then
+    for _, parent in ipairs(parents) do
+        resizeParts(parent)
+    end
+    print("Resized all parts named '" .. partName .. "' within parents named '" .. parentName .. "'.")
+else
+    warn("No parents named '" .. parentName .. "' found.")
+end
+
+-- Set the chosenModel variable to the newly spawned model
+chosenModel = game.Workspace:FindFirstChild(parentName)
+
+-- Listen for model deletion
+if chosenModel then
+    chosenModel.AncestryChanged:Connect(handleDeletion)
+end
