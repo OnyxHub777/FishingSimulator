@@ -1,5 +1,5 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("FishingSimulatorRevised-V1.2", "Midnight")
+local Window = Library.CreateLib("FishingSimulatorRevised-V1.3", "Midnight")
     -- MAIN
     local Main = Window:NewTab("Godmode")
     local MainSection = Main:NewSection("Main")
@@ -177,10 +177,10 @@ teleportPlayer(game.Players.LocalPlayer)
     
     end)
     
-    local Main = Window:NewTab("FishCatch Changer")
+    local Main = Window:NewTab("ServerSided")
     local MainSection = Main:NewSection("Main")
     
-    MainSection:NewButton("Pole Troll", "Puts a lot of fish on your fishing pole, press the button for more fish.", function()
+    MainSection:NewButton("Fish Changer", "Changes the type of fish on your pole", function()
  
 
 game:GetService("ReplicatedStorage").CloudFrameShared.DataStreams.FishBiting:InvokeServer()
